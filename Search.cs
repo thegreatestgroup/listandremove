@@ -84,11 +84,53 @@ namespace Finale
             }
         }
 
+        public bool isAlbumExist(string albumName)
+        {
+            string query = "SELECT Album.ID" +
+                          " FROM Album WHERE" +
+                          " Album.Name LIKE " + albumName + ";";
+
+            System.Data.DataTable table;
+
+            SQLConnection sqlConnection = new SQLConnection();
+            table = sqlConnection.execute("SearchResults", query);
+
+            if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool isComposerIdExist(string composerId)
         {
             string query = "SELECT Composer.ID" +
                           " FROM Composer WHERE" +
                           " Composer.ID LIKE " + composerId + ";";
+
+            System.Data.DataTable table;
+
+            SQLConnection sqlConnection = new SQLConnection();
+            table = sqlConnection.execute("SearchResults", query);
+
+            if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool isComposerExist(string composerName)
+        {
+            string query = "SELECT Composer.ID" +
+                          " FROM Composer WHERE" +
+                          " Composer.Name LIKE " + composerName + ";";
 
             System.Data.DataTable table;
 
@@ -126,11 +168,53 @@ namespace Finale
             }
         }
 
+        public bool isGenreExist(string genreType)
+        {
+            string query = "SELECT Genre.ID" +
+                          " FROM Genre WHERE" +
+                          " Genre.Type LIKE " + genreType + ";"; // Genre.Type ? 
+
+            System.Data.DataTable table;
+
+            SQLConnection sqlConnection = new SQLConnection();
+            table = sqlConnection.execute("SearchResults", query);
+
+            if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool isPriceIdExist(string priceValueId)
         {
             string query = "SELECT PriceValue.ID" +
                           " FROM PriceValue WHERE" +
                           " PriceValue.ID LIKE " + priceValueId + ";";
+
+            System.Data.DataTable table;
+
+            SQLConnection sqlConnection = new SQLConnection();
+            table = sqlConnection.execute("SearchResults", query);
+
+            if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool isPriceExist(string price)
+        {
+            string query = "SELECT PriceValue.ID" +
+                          " FROM PriceValue WHERE" +
+                          " PriceValue.Price LIKE " + price + ";";
 
             System.Data.DataTable table;
 
