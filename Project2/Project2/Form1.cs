@@ -128,13 +128,13 @@ namespace Finale
             songID = addSongID.Text.ToString();
             songName = addSongName.Text.ToString();
             songArtist = addSongArtist.Text.ToString();
-            songComposer = addSongComposer.ToString();
+            songComposer = addSongComposer.Text.ToString();
             songGenre = addSongGenre.Text.ToString();
             songYear = addSongYear.Text.ToString();
-            songPrice = addSongPrice.Text.ToString();
+            //songPrice = addSongPrice.Text.ToString();
 
             if (songID == "" || songName == "" || songArtist == "" || songComposer == "" || songGenre == "" ||
-                songYear == "" || songPrice == "")
+                songYear == "") // || songPrice == "")
             {
                 MessageBox.Show("No empty fields allowed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -147,8 +147,8 @@ namespace Finale
                                      "ArtistID=" + songArtist + "," +
                                      "ComposerID=" + songComposer + "," +
                                      "GenreID=" + songGenre + "," +
-                                     "Year=" + songYear + "," +
-                                     "PriceID=" + songPrice + ";";
+                                     "Year=" + songYear; // + "," +
+                                     //"PriceID=" + songPrice;
 
             Operations operations = new Operations();
 

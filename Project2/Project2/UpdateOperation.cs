@@ -26,6 +26,8 @@ namespace Finale
             updateQuery +=      " SET " + sqlSetStatement;
             updateQuery +=      " WHERE " + columnName + "=" + rowId + ";";
 
+            //System.Windows.Forms.MessageBox.Show(updateQuery, "Updated", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
+
             SQLConnection sqlConnection = new SQLConnection();
 
             sqlConnection.execute(tableName, updateQuery);
@@ -62,13 +64,16 @@ namespace Finale
         {
             string updateQuery = "DECLARE @TranName VARCHAR(20);" +
                                 " SELECT @TranName = 'UpdateTransaction';" +
-                                " BEGIN TRANSACTION @TranName;" +
+                                " BEGIN TRANSACTION @TranName" +
                                 " WITH MARK N'Updating an attribute.';";
             updateQuery +=      " UPDATE " + tableName;
             updateQuery +=      " SET " + sqlSetStatement;
-            updateQuery +=      " WHERE " + columnName + "=" + rowId + ";";
-            updateQuery +=      " COMMIT TRANSACTION @TranName;" +
-                                " GO";
+            updateQuery +=      " WHERE " + columnName + "=" + rowId + ";"; // +
+                                //" GO";
+            updateQuery +=      " COMMIT TRANSACTION @TranName;"; // +
+                                //" GO";
+
+            //System.Windows.Forms.MessageBox.Show(updateQuery, "Updated", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
 
             SQLConnection sqlConnection = new SQLConnection();
 

@@ -19,7 +19,7 @@ namespace Finale
 
         public bool isSongIdExist(string songId)
         {
-            string query = "SELECT Song.ID" +
+            string query = "SELECT *" +
                           " FROM Song WHERE" +
                           " Song.ID LIKE " + songId + ";";
 

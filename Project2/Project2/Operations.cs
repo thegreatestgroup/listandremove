@@ -211,8 +211,9 @@ namespace Finale
             Search search = new Search();
             UpdateOperation uop = new UpdateOperation();
 
-            if (search.isSongExist(songId))
+            if (search.isSongIdExist(songId))
             {
+                //uop.updateAttributeInTableWithoutTransaction("Song", "ID", songId, sqlSetStatement);
                 uop.updateAttributeInTableComplex("Song", "ID", songId, sqlSetStatement);
 
                 System.Windows.Forms.MessageBox.Show("Song updated.", "Updated", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
