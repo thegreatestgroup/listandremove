@@ -90,13 +90,13 @@ namespace Finale
             string updateQuery = "BEGIN TRY " + 
                                 " DECLARE @TranName VARCHAR(20);" +
                                 " SELECT @TranName = 'UpdateTransaction';" +
-                                " BEGIN TRANSACTION @TranName;" +
+                                " BEGIN TRANSACTION @TranName" +
                                 " WITH MARK N'Updating an attribute.';";
             updateQuery +=      " UPDATE " + tableName;
             updateQuery +=      " SET " + sqlSetStatement;
             updateQuery +=      " WHERE " + columnName + "=" + rowId + ";";
             updateQuery +=      " COMMIT TRANSACTION @TranName;" +
-                                " GO" +
+                                //" GO" +
                                 " END TRY";
             updateQuery +=      " BEGIN CATCH" +
                                 " IF @@TRANCOUNT > 0" +
