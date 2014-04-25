@@ -11,7 +11,6 @@ namespace Finale
 {
     class Search
     {
-
         public DataTable SearchFor(Song temp)
         {
             int counter = 0;
@@ -43,11 +42,7 @@ namespace Finale
                 query += ("album LIKE '%" + temp.Album.Value + "%'");
             }
 
-
-
-
             System.Data.DataTable table;
-
 
             using (System.Data.SqlClient.SqlConnection _con = new System.Data.SqlClient.SqlConnection("user id=GreatestGroup;" + "password=password; server=champlainmssql.cabect4hsdzs.us-east-1.rds.amazonaws.com,7788;" + 
                 //"Trusted_Connection=yes;" 
@@ -65,9 +60,91 @@ namespace Finale
                 }
             }
 
-
             return table;
         }
 
+        public bool isAlbumIdExist(string albumId)
+        {
+            string query = "SELECT Album.ID" +
+                          " FROM Album WHERE" +
+                          " Album.ID LIKE " + albumId + ";";
+
+            System.Data.DataTable table;
+
+            SQLConnection sqlConnection = new SQLConnection();
+            table = sqlConnection.execute("SearchResults", query);
+
+            if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool isComposerIdExist(string composerId)
+        {
+            string query = "SELECT Composer.ID" +
+                          " FROM Composer WHERE" +
+                          " Composer.ID LIKE " + composerId + ";";
+
+            System.Data.DataTable table;
+
+            SQLConnection sqlConnection = new SQLConnection();
+            table = sqlConnection.execute("SearchResults", query);
+
+            if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool isGenreIdExist(string genreId)
+        {
+            string query = "SELECT Genre.ID" +
+                          " FROM Genre WHERE" +
+                          " Genre.ID LIKE " + genreId + ";";
+
+            System.Data.DataTable table;
+
+            SQLConnection sqlConnection = new SQLConnection();
+            table = sqlConnection.execute("SearchResults", query);
+
+            if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool isPriceIdExist(string priceValueId)
+        {
+            string query = "SELECT PriceValue.ID" +
+                          " FROM PriceValue WHERE" +
+                          " PriceValue.ID LIKE " + priceValueId + ";";
+
+            System.Data.DataTable table;
+
+            SQLConnection sqlConnection = new SQLConnection();
+            table = sqlConnection.execute("SearchResults", query);
+
+            if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
