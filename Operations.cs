@@ -92,16 +92,11 @@ namespace Finale
 				return "You must fill out every field!";
 
 			string temp;
-			string getLastSongID = "SELECT MAX(Song.ID) AS lastSongID FROM Song";
 
-			System.Data.DataTable lastSongID = mDB.execute("lastSongID", getLastSongID);
-
-			int nextSongID = Convert.ToInt32(lastSongID.Rows[0]["lastSongID"].ToString()) + 1;
-/*
 			string addSong = "BEGIN TRY " +
 							 "BEGIN TRANSACTION ";
 
-*/
+
 			// check if song already exists
 			temp = song.Replace("'", "''");
 			string songExists = "SELECT Song.ID FROM Song WHERE Song.Name LIKE '" + temp + "'";
@@ -113,6 +108,8 @@ namespace Finale
 				return "That song already exists!";
 			}
 
+			#region Album
+
 			// check if album exists
 			temp = album.Replace("'", "''");
 			string albumExists = "SELECT Album.ID FROM Album WHERE Album.Name LIKE '" + temp + "'";
@@ -121,8 +118,12 @@ namespace Finale
 
 			if (albumID.Rows.Count == 0)
 			{
-				// ******** add album sql here *********
+				return "The album doesn't exist";
 			}
+
+			#endregion
+
+			#region Artist
 
 			// check if artist exists
 			temp = artist.Replace("'", "''");
@@ -132,19 +133,27 @@ namespace Finale
 
 			if (artistID.Rows.Count == 0)
 			{
-				// ********* add artist sql here *********
+				return "The genre doesn't exist";
 			}
+
+			#endregion
+
+			#region Composer
 
 			// check if composer exists
 			temp = composer.Replace("'", "''");
-			string composerExists = "SELECT Composer.ID FROM Composer WHERE Composer.Name LIKE '" + temp + "'");
+			string composerExists = "SELECT Composer.ID FROM Composer WHERE Composer.Name LIKE '" + temp + "'";
 
 			System.Data.DataTable composerID = mDB.execute("composerExists", composerExists);
 
 			if (composerID.Rows.Count == 0)
 			{
-				// ****** add composer sql here ********
+				return "The composer doesn't exist";
 			}
+
+			#endregion
+
+			#region Genre
 
 			// check if genre exists
 			temp = genre.Replace("'", "''");
@@ -154,18 +163,35 @@ namespace Finale
 
 			if (genreID.Rows.Count == 0)
 			{
-				// ****** add genre sql here ********
+				return "The genre doesn't exist";
 			}
 
-			// add the song sql here
-/*
+			#endregion
+
+			string getLastSongID = "SELECT MAX(Song.ID) AS lastSongID FROM Song";
+
+			System.Data.DataTable lastSongID = mDB.execute("lastSongID", getLastSongID);
+
+			int nextSongID = Convert.ToInt32(lastSongID.Rows[0]["lastSongID"].ToString()) + 1;
+
+			addSong += "INSERT INTO Song " +
+					   "VALUES (" + nextSongID + "," + song + "," + (int)artistID.Rows[0]["ArtistID"] + "," +
+					(int)composerID.Rows[0]["ID"] + "," + (int)genreID.Rows[0]["ID"] + "," + year + ") ";
+
+			addSong += "INSERT INTO AlbumSong " +
+					   "VALUES (" + (int)albumID.Rows[0]["ID"] + "," + nextSongID + ") ";
+
 
 			addSong +=		 "COMMIT " +
 							 "END TRY " +
 							 "BEGIN CATCH " +
 							 "IF @@TRANCOUNT > 0 " +
 							 "ROLLBACK " +
-							 "END CATCH";*/
+							 "END CATCH";
+
+			// execute addSong here
+			mDB.execute("addSong", addSong);
+
 			return "";
 		}
 
